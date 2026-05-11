@@ -116,8 +116,12 @@ for k in range(steps - 1):
 # отрисовываем пути
 plt.figure(figsize=(10, 6))
 plt.plot(x_real[0, :], x_real[1, :], label='Истинная траектория', color='green', linewidth=2)
-plt.scatter(x_noise[0, :], x_noise[1, :], label='Измерения с шумом', color='red', s=10, alpha=0.5)
-plt.plot(x_ekf[0, :], x_ekf[1, :], label='Расш. фильтр Калмана', color='blue', linewidth=2, linestyle='--')
+plt.scatter([x_real[0, s1], x_real[0, s2]], 
+            [x_real[1, s1], x_real[1, s2]], 
+            color='red', s=40, zorder=5, label='Смена отрезков')
+grad_colors = [(r, 0.0, 0.0, 0.8) for r in np.linspace(0, 1, steps)]
+plt.scatter(x_noise[0, :], x_noise[1, :], c=grad_colors, s=10, label='Измерения с шумом')
+plt.plot(x_ekf[0, :], x_ekf[1, :], label='Расш. фильтр Калмана', color='blue', linewidth=2)
 
 plt.title('Траектории робота')
 plt.xlabel('x coord')
